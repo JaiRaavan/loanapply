@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+    CIBIL and Bank Data
+{% endblock %}
+
+{% block css_block %}
+    <!-- Add any custom CSS here if needed -->
+    <style>
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block body_block %}
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="form-section">
+            <h3>CIBIL Data</h3>
+            {{ cibil_form.as_p }}
+            <!-- Display non-field errors for the CIBIL form -->
+            {% if cibil_form.non_field_errors %}
+                <ul class="error">
+                    {% for error in cibil_form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-section">
+            <h3>Bank Data</h3>
+            {{ bank_form.as_p }}
+            <!-- Display non-field errors for the Bank form -->
+            {% if bank_form.non_field_errors %}
+                <ul class="error">
+                    {% for error in bank_form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block js_block %}
+    <!-- Add any custom JavaScript here if needed -->
+{% endblock %}

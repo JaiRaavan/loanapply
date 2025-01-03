@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block css_block %}
+
+{% endblock %}
+
+
+
+{% block body_block %}
+<form method="POST">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <button type="submit">Profile Details</button>
+</form>
+{% endblock %}
+
+
+
+{% block js_block %}
+
+{% endblock %}
