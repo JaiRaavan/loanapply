@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <title>CIBIL and Bank Data</title>
+{% endblock %}
+
+{% block css_block %}
+    <!-- Add Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .form-container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-section {
+            margin-bottom: 30px;
+        }
+        .form-section h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .form-control:focus {
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 0.9rem;
+        }
+    </style>
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        <div class="form-container">
+            <h1 class="form-title">CIBIL and Bank Data</h1>
+            <form method="POST" class="needs-validation" novalidate>
+                {% csrf_token %}
+
+                <div class="form-section">
+                    <h3>CIBIL Data</h3>
+                    {{ cibil_form|crispy }}
+                    {% if cibil_form.non_field_errors %}
+                        <ul class="error">
+                            {% for error in cibil_form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-section">
+                    <h3>Bank Data</h3>
+                    {{ bank_form|crispy }}
+                    {% if bank_form.non_field_errors %}
+                        <ul class="error">
+                            {% for error in bank_form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="d-grid gap-2 mt-3">
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js_block %}
+    <!-- Add Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Example of form validation
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })();
+    </script>
+{% endblock %}
